@@ -8,4 +8,6 @@ blogRouter.post('/blogs/create',auth, createBlog)
 blogRouter.get('/blogs', getAllBlog)
 blogRouter.get('/blogs/:id', getSinglePost)
 blogRouter.put('/blogs/update', auth, updatePost)
-blogRouter.put('/blogs/delete/:id', auth, deletePost)
+blogRouter.delete('/blogs/delete/:id', auth, deletePost)
+
+export default blogRouter

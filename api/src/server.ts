@@ -4,6 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { connectDB } from './lib/db';
 import authRouter from './routes/auth.routes';
+import blogRouter from './routes/blog.routes';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use('/api/v1', authRouter);
+app.use('/api/v1', blogRouter);
 
 app.listen(PORT, () => {
   try {
