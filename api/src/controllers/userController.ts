@@ -2,7 +2,6 @@ import User from '../model/user.model';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { strict } from 'assert';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
