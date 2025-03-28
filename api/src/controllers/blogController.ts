@@ -33,7 +33,7 @@ export const createBlog = async (
     });
 
     res.status(201).json({
-      success: false,
+      success: true,
       message: 'Post created successfully',
       post,
     });
