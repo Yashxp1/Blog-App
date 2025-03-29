@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 import axios from 'axios';
+import { BaseURL } from './BaseURL';
 
-const API_URL = 'https://localhost:3001/api/v1';
 
-type AuthState = {
+export type AuthState = {
   user: any | null;
   token: string | null;
   register: (name: string, username: string, password: string) => Promise<void>;
@@ -17,7 +17,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   register: async (username, name, password) => {
     try {
-      const res = await axios.post(`${API_URL}/auth/register`, {
+      const res = await axios.post(`${BaseURL}/auth/register`, {
         name,
         username,
         password,
@@ -31,7 +31,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   login: async (username, password) => {
     try {
-      const res = await axios.post(`${API_URL}/auth/login`, {
+      const res = await axios.post(`${BaseURL}/auth/login`, {
         username,
         password,
       });

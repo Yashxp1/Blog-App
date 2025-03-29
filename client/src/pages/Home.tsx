@@ -42,7 +42,7 @@ const Home = () => {
           sharing thoughts effortlessly.
         </motion.p>
         <div className="flex flex-col sm:flex-row gap-4 mt-10">
-          <Link to={'/blogs'}>
+          <Link to={'/register'}>
             <button
               className="bg-gradient-to-r from-yellow-300 to-orange-200 
              text-orange-600 
@@ -57,7 +57,7 @@ const Home = () => {
              border-2 border-orange-600
              shadow-md hover:shadow-lg"
             >
-              Explore
+              Register
             </button>
           </Link>
           <Link to={'/login'}>
@@ -81,7 +81,6 @@ const Home = () => {
             >
               {' '}
               Login
-              
             </button>
           </Link>
         </div>
