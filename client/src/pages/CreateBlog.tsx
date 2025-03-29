@@ -14,12 +14,13 @@ const CreateBlog = () => {
 
   const handleCreateBlog = async (e: React.FormEvent) => {
     e.preventDefault();
+    
 
     const tagsArray = tags.split(',').map((tag) => tag.trim());
 
     try {
-      const success = await createBlog(title, content, tagsArray, image);
-
+      const success = await createBlog(title, content, image, tagsArray);
+      
       if (success) {
         toast.success('You have created a blog successfully!');
       } else {

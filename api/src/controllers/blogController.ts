@@ -14,6 +14,7 @@ export const createBlog = async (
         success: false,
         message: 'both title and content are required',
       });
+      return
     }
 
     if (!req.userID) {
@@ -32,11 +33,17 @@ export const createBlog = async (
       author: req.userID,
     });
 
+    
+
     res.status(201).json({
       success: true,
       message: 'Post created successfully',
       post,
     });
+
+    console.log(post)
+    console.log(process.env.JWT_SECRET)
+
   } catch (error) {
     console.error('Error in SIGNUP ', error);
     res.status(500).json({

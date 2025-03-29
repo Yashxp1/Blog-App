@@ -8,7 +8,15 @@ const auth = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const token = req.cookies.token;
+    let token = req.cookies.token;
+
+
+    if (!token && req.headers.authorization) {
+      const authHeader = req.headers.authorization;
+      if (authHeader.startsWith('Bearer ')) {
+        token = authHeader.split(' ')[1]; // Extract token from "Bearer token"
+      }
+    }
 
     if (!token) {
       res.status(400).json({

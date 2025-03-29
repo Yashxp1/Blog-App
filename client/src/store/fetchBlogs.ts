@@ -42,12 +42,18 @@ export const useBlogStore = create<BlogStore>((set) => ({
     try {
       const token = localStorage.getItem('token');
 
+      console.log(token);
+
       if (!token) {
         console.error('No authentication token found');
+        console.log(token);
         return false;
       }
+
+    
+
       const res = await axios.post(
-        `${BaseURL}/blogs/create`,
+        'http://localhost:3001/api/v1/blogs/create',
         { title, content, image, tags },
         {
           headers: {
@@ -57,6 +63,10 @@ export const useBlogStore = create<BlogStore>((set) => ({
         }
       );
 
+      console.log(res.data);
+      console.log(res.data.newPost);
+      console.log(res);
+
       if (res.status === 201) {
         set((state) => ({
           blogs: [...state.blogs, res.data.newPost],
@@ -65,7 +75,7 @@ export const useBlogStore = create<BlogStore>((set) => ({
       }
       return false;
     } catch (error) {
-      console.error('No authentication token found');
+      console.error('No authentication token found', error);
       return false;
     }
   },

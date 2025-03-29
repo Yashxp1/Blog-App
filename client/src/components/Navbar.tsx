@@ -62,7 +62,7 @@ const Navbar = () => {
         >
           <Link to={'/'}>
             <motion.span 
-              className={`text-${scrolled ? '2xl' : '4xl'} sm:text-${scrolled ? 'xl' : '3xl'} md:text-${scrolled ? '7xl' : '9xl'} lg:text-${scrolled ? '5xl' : '7xl'} xl:text-${scrolled ? '7xl' : '9xl'} 2xl:text-${scrolled ? '2xl' : '4xl'}`}
+              className={`text-${scrolled ? '2xl' : '4xl'} sm:text-${scrolled ? 'xl' : '3xl'} md:text-${scrolled ? '7xl' : '5xl'} lg:text-${scrolled ? '5xl' : '6xl'} xl:text-${scrolled ? '7xl' : '5xl'} 2xl:text-${scrolled ? '2xl' : '4xl'}`}
             >
               BlogSphere.
             </motion.span>
