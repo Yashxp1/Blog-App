@@ -10,10 +10,10 @@ const Blogs = () => {
   }, []);
 
   return (
-    <div className="bg-gradient-to-b from-blue-500 to-white min-h-screen w-full p-4">
+    <div className=" min-h-screen w-full p-4">
       <h1
         className="lg:text-9xl text-7xl font-bold p-2
-        bg-gradient-to-b from-white to-blue-300
+        bg-gradient-to-b from-blue-700 to-purple-400
         bg-clip-text text-transparent text-center mb-8"
       >
         Explore
