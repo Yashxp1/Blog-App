@@ -1,6 +1,7 @@
 import { useScroll, useSpring } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
+import PlusIcon from '../icons/PlusIcon';
 
 const Navbar = () => {
   const { scrollYProgress } = useScroll();
@@ -21,11 +22,13 @@ const Navbar = () => {
           <Link to={'/'}>BlogSphere.</Link>
         </div>
 
-        <button 
+        <div
           className="bg-gradient-to-r from-blue-200 to-orange-100 
-             text-blue-700 
+             text-blue-700 space-x-2
+             flex items-center justify-center
              font-semibold
-             px-6 py-3 
+             px-auto
+             py-2
              rounded-xl
              hover:from-blue-200 hover:to-white 
              transition-all duration-300 
@@ -35,8 +38,10 @@ const Navbar = () => {
              border-2 border-blue-600
              shadow-md hover:shadow-lg"
         >
-          Create Blog
-        </button>
+          <PlusIcon />
+
+          <button>Create Blog</button>
+        </div>
       </div>
       <motion.div
         style={{ scaleX }}

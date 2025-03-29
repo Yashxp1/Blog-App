@@ -55,7 +55,7 @@ export const getAllBlog = async (
     res.status(200).json({ success: true, getPosts });
     return;
   } catch (error) {
-    console.error('Error in SIGNUP ', error);
+    console.error('Error in Get blogs ', error);
     res.status(500).json({
       success: false,
       message: 'Server Error',

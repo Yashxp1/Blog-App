@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import RightArrow from '../icons/RightArrow';
 
 const Home = () => {
   return (
@@ -63,6 +64,7 @@ const Home = () => {
             <button
               className="bg-gradient-to-r from-purple-200 to-purple-300 
              text-purple-800 
+             flex items-center justify-center gap-2
              px-6 py-3 
              rounded-xl
              font-semibold
@@ -77,7 +79,9 @@ const Home = () => {
              focus:outline-none focus:ring-2 focus:ring-purple-300 
              active:bg-gradient-to-r active:from-purple-250 active:to-purple-350"
             >
+              {' '}
               Login
+              
             </button>
           </Link>
         </div>
