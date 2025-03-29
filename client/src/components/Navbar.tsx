@@ -13,7 +13,7 @@ const Navbar = () => {
     restDelta: 0.001,
   });
 
-  // Transform values based on scroll
+
   const navHeight = useTransform(scrollYProgress, 
     [0, 0.1], 
     ['5rem', '3.5rem']
@@ -24,7 +24,7 @@ const Navbar = () => {
     ['4xl', '2xl']
   );
 
-  // Check scroll position to trigger animations
+
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 20;
@@ -105,8 +105,9 @@ const Navbar = () => {
 
           <motion.button
             whileHover={{ textShadow: "0 0 8px rgba(37, 99, 235, 0.5)" }}
-          >
+          ><Link to={'/blogs/create'}>
             Create Blog
+          </Link>
           </motion.button>
         </motion.div>
       </div>
