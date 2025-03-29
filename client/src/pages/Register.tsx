@@ -1,6 +1,8 @@
 import { useAuthStore } from '../store/useAuthStore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { motion } from 'motion/react';
 
@@ -15,13 +17,24 @@ const Register = () => {
 
   const handleRegister = async (e: any) => {
     e.preventDefault();
-    await register(name, username, password);
-    navigate('/login');
-    alert('You have Registered successfully');
+
+    try {
+      const success = await register(name, username, password);
+      if (success) {
+        toast.success('You have registered successfully!');
+        navigate('/login');
+      } else {
+        toast.error('All the fields are required. Try again!');
+      }
+    } catch (error) {
+      toast.error('An error occurred while logging in.');
+      console.error('Login error:', error);
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center font-grotesk p-4">
+      <ToastContainer />
       <div className="w-full max-w-md">
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 p-8">
           <motion.h2 className="text-5xl text-center  font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent mb-6">
@@ -31,17 +44,17 @@ const Register = () => {
           <form onSubmit={handleRegister}>
             <div className="mb-4">
               <label
-                htmlFor="username"
+                htmlFor="name"
                 className="block text-gray-700 font-semibold mb-2"
               >
                 Name
               </label>
               <input
-                required={true}
+            
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 type="text"
-                id="username"
+                id="name"
                 className="w-full px-3 py-2 border-indigo-200 bg-white/20 backdrop-blur-md rounded-lg border-2 focus:ring-0 focus:outline-none"
                 placeholder="Enter your name"
               />
@@ -55,7 +68,7 @@ const Register = () => {
                 Username
               </label>
               <input
-                required={true}
+                
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 type="text"
@@ -73,7 +86,7 @@ const Register = () => {
                 Password
               </label>
               <input
-                required={true}
+                
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
@@ -85,7 +98,6 @@ const Register = () => {
 
             <div className="flex flex-col space-y-4">
               <button
-                onClick={() => navigate('/login')}
                 type="submit"
                 className="w-full  bg-gradient-to-r from-blue-400 to-indigo-400 text-white py-2 rounded-lg hover:opacity-90 transition duration-300 ease-in-out"
               >

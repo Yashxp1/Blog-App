@@ -18,7 +18,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   token: localStorage.getItem('token') || null,
 
-  register: async (username, name, password) => {
+  register: async (name, username, password) => {
     try {
       const res = await axios.post(`${BaseURL}/auth/register`, {
         name,
