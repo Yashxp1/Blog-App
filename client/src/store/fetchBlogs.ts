@@ -6,16 +6,20 @@ import { BaseURL } from './BaseURL';
 type BlogStore = {
   blogs: BlogPost[];
   getBlogs: () => Promise<void>;
+
   createBlog: (
     title: string,
     content: string,
     image?: string,
     tags?: string[]
   ) => Promise<boolean>;
+
+  getSingleBlog: (id: string) => Promise<void>;
 };
 
 export const useBlogStore = create<BlogStore>((set) => ({
   blogs: [],
+  singleBlog: null,
 
   getBlogs: async () => {
     try {
@@ -50,8 +54,6 @@ export const useBlogStore = create<BlogStore>((set) => ({
         return false;
       }
 
-    
-
       const res = await axios.post(
         'http://localhost:3001/api/v1/blogs/create',
         { title, content, image, tags },
@@ -63,10 +65,6 @@ export const useBlogStore = create<BlogStore>((set) => ({
         }
       );
 
-      console.log(res.data);
-      console.log(res.data.newPost);
-      console.log(res);
-
       if (res.status === 201) {
         set((state) => ({
           blogs: [...state.blogs, res.data.newPost],
@@ -77,6 +75,27 @@ export const useBlogStore = create<BlogStore>((set) => ({
     } catch (error) {
       console.error('No authentication token found', error);
       return false;
+    }
+  },
+
+  getSingleBlog: async (id) => {
+    try {
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        console.error('No authentication token found');
+        return;
+      }
+
+      const res = await axios.get(`${BaseURL}/blogs/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      set({ getSingleBlog: res.data.post });
+    } catch (error) {
+      console.error('Error fetching single blog:', error);
     }
   },
 }));
