@@ -11,6 +11,10 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+    const [laoding, setLoading] = useState<boolean>(false)
+
+    
+
   const login = useAuthStore((state) => state.login);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -78,6 +82,7 @@ const Login = () => {
 
             <div className="flex flex-col space-y-4">
               <button
+              
                 type="submit"
                 className="w-full  bg-gradient-to-r from-blue-400 to-indigo-400 text-white py-2 rounded-lg hover:opacity-90 transition duration-300 ease-in-out"
               >

@@ -60,7 +60,7 @@ const Navbar = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.98 }}
         >
-          <Link to={'/'}>
+          <Link to={'/blogs'}>
             <motion.span 
               className={`text-${scrolled ? '2xl' : '4xl'} sm:text-${scrolled ? 'xl' : '3xl'} md:text-${scrolled ? '7xl' : '5xl'} lg:text-${scrolled ? '5xl' : '6xl'} xl:text-${scrolled ? '7xl' : '5xl'} 2xl:text-${scrolled ? '2xl' : '4xl'}`}
             >

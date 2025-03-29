@@ -5,6 +5,7 @@ import { BaseURL } from './BaseURL';
 
 type BlogStore = {
   blogs: BlogPost[];
+  singleBlog: BlogPost | null;
   getBlogs: () => Promise<void>;
 
   createBlog: (
@@ -93,7 +94,7 @@ export const useBlogStore = create<BlogStore>((set) => ({
         },
       });
 
-      set({ getSingleBlog: res.data.post });
+      set({ singleBlog: res.data.post });
     } catch (error) {
       console.error('Error fetching single blog:', error);
     }

@@ -1,13 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useBlogStore } from '../store/fetchBlogs';
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 
 const Blogs = () => {
   const { blogs, getBlogs } = useBlogStore();
 
+
   useEffect(() => {
     getBlogs();
   }, [getBlogs]);
+
+
+
+  const sortedBlogs = [...blogs].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
 
   return (
     <div className=" min-h-screen w-full p-4">
@@ -25,7 +33,7 @@ const Blogs = () => {
             NO Blogs Found
           </h2>
         ) : (
-          blogs.map((blog) => (
+          sortedBlogs.map((blog) => (
             <motion.div
               whileHover={{
                 scale: 1.01,
@@ -43,48 +51,50 @@ const Blogs = () => {
               key={blog._id}
               className="w-full cursor-pointer border-blue-200 border-2 rounded-xl overflow-hidden shadow-lg bg-gradient-to-b from-blue-100 to-pink-100 p-6"
             >
-              <motion.h2
-                className="text-4xl font-bold text-blue-800"
-                whileHover={{ color: '#1e40af' }}
-              >
-                {blog.title}
-              </motion.h2>
+              <Link to={`/blogs/${blog._id}`}>
+                <motion.h2
+                  className="text-4xl font-bold text-blue-800"
+                  whileHover={{ color: '#1e40af' }}
+                >
+                  {blog.title}
+                </motion.h2>
 
-              <motion.h3
-                className="text-lg mt-1 text-blue-600"
-                whileHover={{ color: '#2563eb' }}
-              >
-                Author: {blog.author.username}
-              </motion.h3>
+                <motion.h3
+                  className="text-lg mt-1 text-blue-600"
+                  whileHover={{ color: '#2563eb' }}
+                >
+                  Author: {blog.author.username}
+                </motion.h3>
 
-              <span className="font-light">
-                <p className="text-sm py-1">
-                  Published: {new Date(blog.createdAt).toLocaleDateString()}
-                </p>
+                <span className="font-light">
+                  <p className="text-sm py-1">
+                    Published: {new Date(blog.createdAt).toLocaleDateString()}
+                  </p>
 
-                {blog.tags && blog.tags.length > 0 ? (
-                  <motion.span
-                    className="text-purple-700 px-2 rounded-md bg-purple-200 border-2 font-sm text-sm"
-                    whileHover={{
-                      backgroundColor: '#e9d5ff',
-                      color: '#6b21a8',
-                    }}
-                  >
-                    {blog.tags.join(', ')}
-                  </motion.span>
-                ) : (
-                  <span>hi</span>
-                )}
-              </span>
+                  {blog.tags && blog.tags.length > 0 ? (
+                    <motion.span
+                      className="text-purple-700 px-2 rounded-md bg-purple-200 border-2 font-sm text-sm"
+                      whileHover={{
+                        backgroundColor: '#e9d5ff',
+                        color: '#6b21a8',
+                      }}
+                    >
+                      {blog.tags.join(', ')}
+                    </motion.span>
+                  ) : (
+                    <span>hi</span>
+                  )}
+                </span>
 
-              <motion.p
-                className="text-gray-700 mt-4 leading-relaxed"
-                initial={{ opacity: 0.8 }}
-                whileHover={{ opacity: 1 }}
-              >
-                {blog.content.split(' ').slice(0, 25).join(' ')}
-                {blog.content.split(' ').length > 25 ? '...' : ''}
-              </motion.p>
+                <motion.p
+                  className="text-gray-700 mt-4 leading-relaxed"
+                  initial={{ opacity: 0.8 }}
+                  whileHover={{ opacity: 1 }}
+                >
+                  {blog.content.split(' ').slice(0, 25).join(' ')}
+                  {blog.content.split(' ').length > 25 ? '...' : ''}
+                </motion.p>
+              </Link>
             </motion.div>
           ))
         )}
