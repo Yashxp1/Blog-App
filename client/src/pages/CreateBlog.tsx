@@ -1,15 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useBlogStore } from '../store/fetchBlogs';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateBlog = () => {
+  const { createBlog } = useBlogStore();
+
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [tags, setTags] = useState('');
+  const [image, setImage] = useState('');
+
+  const handleCreateBlog = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const tagsArray = tags.split(',').map((tag) => tag.trim());
+
+    try {
+      const success = await createBlog(title, content, tagsArray, image);
+
+      if (success) {
+        toast.success('You have created a blog successfully!');
+      } else {
+        toast.error('Failed to create Blog. Try again!');
+      }
+    } catch (error) {
+      console.error('Error while creating a blog:', error);
+    }
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen  p-4">
+      <ToastContainer />
       <div className="w-full max-w-2xl backdrop-blur-lg bg-white/30 rounded-xl shadow-lg p-8 border border-white/40">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">
           Create New Blog
         </h1>
 
-        <form>
+        <form onSubmit={handleCreateBlog}>
           <div className="space-y-6">
             <div>
               <label
@@ -19,6 +48,9 @@ const CreateBlog = () => {
                 Title <span className="text-red-500">*</span>
               </label>
               <input
+                value={title}
+                required
+                onChange={(e) => setTitle(e.target.value)}
                 type="text"
                 id="title"
                 name="title"
@@ -37,6 +69,9 @@ const CreateBlog = () => {
               <textarea
                 id="content"
                 name="content"
+                value={content}
+                required
+                onChange={(e) => setContent(e.target.value)}
                 rows="6"
                 className="w-full px-4 py-2 rounded-lg bg-white/50 border border-purple-300 focus:outline-none focus:ring-2 focus:ring-blue-500 backdrop-blur-sm"
                 placeholder="Write your blog content here..."
@@ -51,6 +86,8 @@ const CreateBlog = () => {
                 Image Link
               </label>
               <input
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
                 type="text"
                 id="imageLink"
                 name="imageLink"
@@ -67,6 +104,8 @@ const CreateBlog = () => {
                 Tags
               </label>
               <input
+                value={tags}
+                onChange={(e) => setTags(e.target.value)}
                 type="text"
                 id="tags"
                 name="tags"
