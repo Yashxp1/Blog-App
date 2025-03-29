@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Blogs from './pages/Blogs';
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: '/blogs',
+        element: <Blogs />,
       },
     ],
   },
@@ -26,7 +31,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className=" bg-gradient-to-br from-blue-400 via-white to-purple-400 min-h-screen">
+    <div className=" bg-gradient-to-br from-blue-400 via-white to-purple-400 min-h-screen font-grotesk">
       <RouterProvider router={router} />
     </div>
   );

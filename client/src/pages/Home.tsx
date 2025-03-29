@@ -13,8 +13,8 @@ const Home = () => {
         >
           <motion.h1
             className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent 
-             text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl 
-             font-bold font-grotesk "
+             text-4xl sm:text-7xl md:text-9xl lg:text-7xl xl:text-9xl 2xl:text-9xl 
+             font-bold font-grotesk"
           >
             BlogSphere.
           </motion.h1>
@@ -35,7 +35,7 @@ const Home = () => {
             scale: 1.02,
             transition: { duration: 0.2 },
           }}
-          className="text-gray-700 text-center font-semibold font-zilla mx-auto w-full max-w-xl py-4 text-base md:text-lg lg:text-xl"
+          className="text-gray-700 text-center font-semibold font-grotesk mx-auto w-full max-w-xl py-4 text-base md:text-lg lg:text-xl"
         >
           A simple yet powerful blogging platform for creating, editing, and
           sharing thoughts effortlessly.
@@ -43,19 +43,20 @@ const Home = () => {
         <div className="flex flex-col sm:flex-row gap-4 mt-10">
           <Link to={'/blogs'}>
             <button
-              className="bg-gradient-to-r from-blue-500 to-purple-600 
-             text-white 
+              className="bg-gradient-to-r from-yellow-300 to-orange-200 
+             text-orange-600 
              font-semibold
              px-6 py-3 
              rounded-xl
-             hover:from-blue-600 hover:to-purple-700 
+             hover:from-orange-200 hover:to-yellow-300 
              transition-all duration-300 
              transform hover:scale-105 
              active:scale-95 
              w-38
+             border-2 border-orange-600
              shadow-md hover:shadow-lg"
             >
-              Start Reading
+              Explore
             </button>
           </Link>
           <Link to={'/login'}>
@@ -68,7 +69,8 @@ const Home = () => {
              hover:from-purple-300 hover:to-purple-400 
              transition-all duration-300 
              transform hover:scale-105 
-             active:scale-95 
+             active:scale-95
+             border-2  
              shadow-md hover:shadow-lg 
               
              w-38

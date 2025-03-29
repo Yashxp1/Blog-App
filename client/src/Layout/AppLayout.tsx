@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 const AppLayout = () => {
   return (
     <div>
-      <main className="min-h-screen container">
+      <main className="">
         <Navbar />
         <Outlet />
       </main>
