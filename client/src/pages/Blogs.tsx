@@ -62,7 +62,7 @@ const Blogs = () => {
                   Published: {new Date(blog.createdAt).toLocaleDateString()}
                 </p>
 
-                {blog.tags === "" ? (
+                {blog.tags && blog.tags.length > 0 ? (
                   <motion.span
                     className="text-purple-700 px-2 rounded-md bg-purple-200 border-2 font-sm text-sm"
                     whileHover={{
@@ -72,7 +72,9 @@ const Blogs = () => {
                   >
                     {blog.tags.join(', ')}
                   </motion.span>
-                ) : null}
+                ) : (
+                  <span>hi</span>
+                )}
               </span>
 
               <motion.p
