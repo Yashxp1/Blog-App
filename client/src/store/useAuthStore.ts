@@ -2,12 +2,15 @@ import { create } from 'zustand';
 import axios from 'axios';
 import { BaseURL } from './BaseURL';
 
-
 export type AuthState = {
   user: any | null;
   token: string | null;
-  register: (name: string, username: string, password: string) => Promise<void>;
-  login: (username: string, password: string) => Promise<void>;
+  register: (
+    name: string,
+    username: string,
+    password: string
+  ) => Promise<boolean>;
+  login: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
 };
 
@@ -23,9 +26,11 @@ export const useAuthStore = create<AuthState>((set) => ({
         password,
       });
       set({ user: res.data.user, token: res.data.token });
-      localStorage.setItem('token', res.data.tok);
+      localStorage.setItem('token', res.data.token);
+      return true;
     } catch (error) {
       console.error('Registration failed', error);
+      return false;
     }
   },
 
@@ -37,8 +42,10 @@ export const useAuthStore = create<AuthState>((set) => ({
       });
       set({ user: res.data.user, token: res.data.token });
       localStorage.setItem('token', res.data.token);
+      return true;
     } catch (error) {
       console.error('Login failed', error);
+      return false;
     }
   },
   logout: () => {

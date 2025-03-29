@@ -1,7 +1,25 @@
+import { useAuthStore } from '../store/useAuthStore';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { motion } from 'motion/react';
 
 const Register = () => {
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
+
+  const register = useAuthStore((state) => state.register);
+
+  const handleRegister = async (e: any) => {
+    e.preventDefault();
+    await register(name, username, password);
+    navigate('/login');
+    alert('You have Registered successfully');
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center font-grotesk p-4">
       <div className="w-full max-w-md">
@@ -10,7 +28,7 @@ const Register = () => {
             Register
           </motion.h2>
 
-          <form>
+          <form onSubmit={handleRegister}>
             <div className="mb-4">
               <label
                 htmlFor="username"
@@ -19,10 +37,13 @@ const Register = () => {
                 Name
               </label>
               <input
+                required={true}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 type="text"
                 id="username"
                 className="w-full px-3 py-2 border-indigo-200 bg-white/20 backdrop-blur-md rounded-lg border-2 focus:ring-0 focus:outline-none"
-                placeholder="Enter your name" 
+                placeholder="Enter your name"
               />
             </div>
 
@@ -34,8 +55,11 @@ const Register = () => {
                 Username
               </label>
               <input
+                required={true}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 type="text"
-                id="password"
+                id="username"
                 className="w-full px-3 py-2 border-indigo-200 bg-white/20 backdrop-blur-md rounded-lg border-2 focus:ring-0 focus:outline-none"
                 placeholder="Enter your password"
               />
@@ -49,6 +73,9 @@ const Register = () => {
                 Password
               </label>
               <input
+                required={true}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 id="password"
                 className="w-full px-3 py-2 bg-white/20 backdrop-blur-md rounded-lg border-2 border-indigo-200 focus:outline-none focus:ring-0"
@@ -58,6 +85,7 @@ const Register = () => {
 
             <div className="flex flex-col space-y-4">
               <button
+                onClick={() => navigate('/login')}
                 type="submit"
                 className="w-full  bg-gradient-to-r from-blue-400 to-indigo-400 text-white py-2 rounded-lg hover:opacity-90 transition duration-300 ease-in-out"
               >
@@ -69,15 +97,15 @@ const Register = () => {
                 <span className="text-gray-600">or</span>
                 <div className="h-px bg-gray-300 w-full"></div>
               </div>
-
-              <button
-                type="button"
-                className="w-full bg-gradient-to-r from-purple-500 to-blue-600 text-white py-2 rounded-lg hover:opacity-90 transition duration-300 ease-in-out"
-              >
-              Login
-              </button>
             </div>
           </form>
+          <button
+            onClick={() => navigate('/login')}
+            type="button"
+            className="w-full bg-gradient-to-r from-purple-500 to-blue-600 text-white py-2 rounded-lg hover:opacity-90 transition duration-300 ease-in-out"
+          >
+            Login
+          </button>
         </div>
       </div>
     </div>
