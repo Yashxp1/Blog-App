@@ -4,6 +4,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useCommentStore } from '../store/commentStore';
 
+import DeleteIcon from '../icons/DeleteIcon';
+
 const CommentSection = () => {
   const { createComment, getComments, comments } = useCommentStore();
   const { id: blogId } = useParams();
@@ -97,9 +99,11 @@ const CommentSection = () => {
                 <div className="flex justify-between items-center">
                   <small className="text-gray-600 text-xs">
                     {new Date(cmt.createdAt).toLocaleString()} <br />
-                    <span className='text-xs'>{cmt.author.name}</span>
+                    <span className="text-xs">{cmt.author.name}</span>
                   </small>
-                  
+                </div>{' '}
+                <div className='flex justify-end items-center'>
+                  <DeleteIcon />
                 </div>
               </div>
             ))
