@@ -46,12 +46,16 @@ const GetSingleBlog = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
-          >
-            <img 
-              src={singleBlog.image} 
-              alt={singleBlog.title} 
-              className="w-full h-auto object-cover rounded-lg transition-transform duration-300 hover:scale-105"
-            />
+          > {loading ? "Fetching Image" : <img 
+            src={singleBlog.image} 
+            alt={singleBlog.title} 
+            className="w-full h-auto object-cover rounded-lg transition-transform duration-300 hover:scale-105"
+          />}
+            {/* // <img 
+            //   src={singleBlog.image} 
+            //   alt={singleBlog.title} 
+            //   className="w-full h-auto object-cover rounded-lg transition-transform duration-300 hover:scale-105"
+            // /> */}
           </motion.div>
         )}
 
