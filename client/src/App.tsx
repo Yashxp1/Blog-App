@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Blogs from './pages/Blogs';
 import CreateBlog from './pages/CreateBlog';
 import GetSingleBlog from './pages/GetSingleBlog';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -16,8 +17,16 @@ const router = createBrowserRouter([
         element: <Blogs />,
       },
       {
-        path: '/blogs/:id', // Dynamic route for single blog
-        element: <GetSingleBlog />,
+        path: '/blogs/:id',
+        element: (
+          <ProtectedRoute>
+            <GetSingleBlog />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/blogs/create',
+        element: <CreateBlog />,
       },
     ],
   },
@@ -32,10 +41,6 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
-  },
-  {
-    path: '/blogs/create',
-    element: <CreateBlog />,
   },
 ]);
 

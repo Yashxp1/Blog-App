@@ -30,7 +30,7 @@ const Blogs = () => {
       <div className="mt-8 flex flex-col items-center gap-8 max-w-4xl mx-auto">
         {blogs.length === 0 ? (
           <h2 className="text-2xl font-bold text-white bg-blue-600 p-4 rounded-lg">
-            NO Blogs Found
+            Loading Blogs...
           </h2>
         ) : (
           sortedBlogs.map((blog) => (

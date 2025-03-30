@@ -7,9 +7,11 @@ import { useCommentStore } from '../store/commentStore';
 import DeleteIcon from '../icons/DeleteIcon';
 
 const CommentSection = () => {
-  const { createComment, getComments, comments } = useCommentStore();
+  const { createComment, getComments, comments, deleteComment } =
+    useCommentStore();
   const { id: blogId } = useParams();
   const [comment, setComment] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (blogId) {
@@ -20,6 +22,8 @@ const CommentSection = () => {
   const handleCreateComment = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setLoading(true);
+
     if (!comment.trim()) {
       toast.warning('Please enter a comment');
       return;
@@ -28,6 +32,7 @@ const CommentSection = () => {
     try {
       const success = await createComment(blogId, comment);
       if (success) {
+        setLoading(false);
         toast.success('Comment added successfully');
         setComment('');
         getComments(blogId);
@@ -38,6 +43,24 @@ const CommentSection = () => {
       toast.error('Server Error');
       console.error('Error while creating a comment:', error);
     }
+  };
+
+  const handleDeleteComment = async (blogId: string, commentId: string) => {
+    setLoading(true);
+    if (!blogId || !commentId) {
+      toast.error('Invalid blog or comment ID');
+      return;
+    }
+
+    await deleteComment(blogId, commentId);
+
+    if (!blogId || !commentId) {
+      toast.error('Invalid blog or comment ID');
+      return;
+    }
+    await deleteComment(blogId, commentId);
+    setLoading(false);
+    toast.success('Comment deleted successfully');
   };
 
   const sortedComments = [...comments].sort(
@@ -78,7 +101,7 @@ const CommentSection = () => {
                 textShadow: '0 0 2px rgba(255,255,255,0.5)',
               }}
             >
-              Post
+              {loading ? 'Posting...' : 'Post'}
             </button>
           </div>
         </form>
@@ -102,9 +125,12 @@ const CommentSection = () => {
                     <span className="text-xs">{cmt.author.name}</span>
                   </small>
                 </div>{' '}
-                <div className='flex justify-end items-center'>
-                  <DeleteIcon />
-                </div>
+                <span
+                  onClick={() => handleDeleteComment(blogId, cmt._id)}
+                  className="flex cursor-pointer justify-end items-center "
+                >
+                  {loading ? 'deleting...' : <DeleteIcon />}
+                </span>
               </div>
             ))
           ) : (

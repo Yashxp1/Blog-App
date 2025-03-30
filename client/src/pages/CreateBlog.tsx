@@ -12,9 +12,12 @@ const CreateBlog = () => {
   const [content, setContent] = useState('');
   const [tags, setTags] = useState('');
   const [image, setImage] = useState('');
-  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleCreateBlog = async (e: React.FormEvent) => {
+    setLoading(true);
     e.preventDefault();
 
     const tagsArray = tags.split(',').map((tag) => tag.trim());
@@ -23,7 +26,9 @@ const CreateBlog = () => {
       const success = await createBlog(title, content, image, tagsArray);
 
       if (success) {
+        setLoading(false);
         toast.success('You have created a blog successfully!');
+        
       } else {
         toast.error('Failed to create Blog. Try again!');
       }
@@ -121,14 +126,15 @@ const CreateBlog = () => {
                 type="submit"
                 className="w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium rounded-lg shadow-md backdrop-blur-sm transition duration-300 ease-in-out"
               >
-                Create Blog
+                {' '}
+                {loading ? 'Creating...' : 'Create Blog'}
               </button>
             </div>
           </div>
         </form>
         <div className="mt-10">
           <button
-          onClick={() => navigate('/blogs')}
+            onClick={() => navigate('/blogs')}
             type="submit"
             className=" py-3 px-4 bg-gradient-to-r from-yellow-400 border-orange-400 to-orange-400 hover:from-yellow-300  hover:to-orange300 text-white font-medium rounded-lg shadow-md backdrop-blur-sm transition duration-300 ease-in-out border-2"
           >

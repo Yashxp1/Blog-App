@@ -3,11 +3,12 @@ import axios from 'axios';
 import { Comment } from '../types/commentTypes';
 import { BaseURL } from './BaseURL';
 
+
 type CommentStore = {
   comments: Comment[];
   getComments: (blogId: string) => Promise<void>;
-
   createComment: (blogId: string, content: string) => Promise<boolean>;
+  deleteComment: (blogId: string, commentId: string) => Promise<void>;
 };
 
 export const useCommentStore = create<CommentStore>((set) => ({
@@ -38,10 +39,6 @@ export const useCommentStore = create<CommentStore>((set) => ({
       return false;
     }
 
-    if (!blogId) {
-      console.error('Error: blogId is undefined');
-      return false;
-    }
     try {
       const token = localStorage.getItem('token');
 
@@ -74,6 +71,32 @@ export const useCommentStore = create<CommentStore>((set) => ({
     } catch (error) {
       console.error('Error creating comment:', error);
       return false;
+    }
+  },
+
+  deleteComment: async (blogId, commentId) => {
+    try {
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        console.log('No token found');
+        return;
+      }
+
+      const res = await axios.delete(
+        `${BaseURL}/blogs/${blogId}/comments/delete/${commentId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      set((state) => ({
+        comments: state.comments.filter((comment) => comment._id !== commentId),
+      }));
+    } catch (error) {
+      console.error('Error deleting comment:', error);
     }
   },
 }));
