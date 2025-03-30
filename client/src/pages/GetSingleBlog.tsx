@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useBlogStore } from '../store/fetchBlogs';
 import { motion } from 'motion/react';
+import CommentSection from '../components/CommentSection';
 
 const GetSingleBlog = () => {
   const { id } = useParams();
@@ -104,6 +105,10 @@ const GetSingleBlog = () => {
           ))}
         </motion.div>
       </motion.div>
+
+      <div>
+      <CommentSection></CommentSection>
+      </div>
     </div>
   );
 };

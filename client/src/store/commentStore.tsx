@@ -33,6 +33,15 @@ export const useCommentStore = create<CommentStore>((set) => ({
   },
 
   createComment: async (blogId, content) => {
+    if (!blogId) {
+      console.error('Error: blogId is undefined');
+      return false;
+    }
+
+    if (!blogId) {
+      console.error('Error: blogId is undefined');
+      return false;
+    }
     try {
       const token = localStorage.getItem('token');
 

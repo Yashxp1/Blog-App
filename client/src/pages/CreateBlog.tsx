@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useBlogStore } from '../store/fetchBlogs';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const CreateBlog = () => {
   const { createBlog } = useBlogStore();
@@ -11,6 +12,7 @@ const CreateBlog = () => {
   const [content, setContent] = useState('');
   const [tags, setTags] = useState('');
   const [image, setImage] = useState('');
+  const navigate = useNavigate()
 
   const handleCreateBlog = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -126,11 +128,13 @@ const CreateBlog = () => {
         </form>
         <div className="mt-10">
           <button
+          onClick={() => navigate('/blogs')}
             type="submit"
             className=" py-3 px-4 bg-gradient-to-r from-yellow-400 border-orange-400 to-orange-400 hover:from-yellow-300  hover:to-orange300 text-white font-medium rounded-lg shadow-md backdrop-blur-sm transition duration-300 ease-in-out border-2"
           >
             {' '}
-            <Link to={'/blogs'}>Go back</Link>
+            Go back
+            {/* <Link to={'/blogs'}>Go back</Link> */}
           </button>
         </div>
       </div>

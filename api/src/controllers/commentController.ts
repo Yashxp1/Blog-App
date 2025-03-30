@@ -11,9 +11,6 @@ export const createComment = async (
     const { blogId } = req.params;
     const { content } = req.body;
 
-
-
-    
     if (!content) {
       res.status(400).json({
         success: false,
@@ -21,9 +18,8 @@ export const createComment = async (
       });
       return;
     }
-    
+
     const post = await Post.findById(blogId);
-   
 
     if (!post) {
       res.status(404).json({ success: false, message: 'Post not found' });
@@ -37,11 +33,13 @@ export const createComment = async (
       return;
     }
 
-    const comment = await Comment.create({
+    let comment = await Comment.create({
       content,
       author: req.userID,
       post: blogId,
     });
+
+    comment = await comment.populate('author', 'username name');
 
     res.status(201).json({ success: true, message: 'Comment added', comment });
   } catch (error) {
@@ -89,12 +87,10 @@ export const deleteComment = async (
     }
 
     if (!comment.post) {
-      res
-        .status(400)
-        .json({
-          success: false,
-          message: 'Invalid comment: No associated post',
-        });
+      res.status(400).json({
+        success: false,
+        message: 'Invalid comment: No associated post',
+      });
       return;
     }
 
@@ -117,7 +113,11 @@ export const getAllComments = async (
   res: Response
 ): Promise<void> => {
   try {
-    const comments = await Comment.find().populate('author', 'username name');
+    const { blogId } = req.params;
+
+    const comments = await Comment.find({ post: blogId })
+      .populate('author', 'username name')
+      .sort({ createAt: -1 });
 
     res.status(200).json({ success: true, comments });
     return;

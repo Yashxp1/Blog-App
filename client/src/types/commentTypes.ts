@@ -1,7 +1,10 @@
 export type Comment = {
   content: string;
-  author: string;
-  post: string;
+  author: {
+    name: string;
+    _id: string;
+  };
+  blogId: string;
   _id: string;
 
   createdAt: string;
