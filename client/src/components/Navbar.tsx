@@ -14,7 +14,7 @@ const Navbar = () => {
     restDelta: 0.001,
   });
 
-  const location = useLocation()
+  const location = useLocation();
 
   const navHeight = useTransform(scrollYProgress, [0, 0.1], ['5rem', '3.5rem']);
 
@@ -44,7 +44,7 @@ const Navbar = () => {
         height: navHeight,
         boxShadow: scrolled ? '0 4px 12px rgba(0, 0, 0, 0.1)' : 'none',
       }}
-     >
+    >
       <div className="container mx-auto px-4 h-full flex justify-between items-center">
         <motion.div
           className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent
@@ -71,47 +71,47 @@ const Navbar = () => {
             </motion.span>
           </Link>
         </motion.div>
-         {/* {
-
-         } */}
-
-        <Link to={'/blogs/create'}>
-          <motion.div
-            className="bg-gradient-to-r from-blue-200 to-orange-100
-            text-blue-700 space-x-2
-            flex items-center justify-center
-            font-semibold
-            px-4
-            py-2
-            rounded-xl
-            border-2 border-blue-600
-            shadow-md"
-            whileHover={{
-              scale: 1.05,
-              backgroundImage: 'linear-gradient(to right, #dbeafe, #fff7ed)',
-            }}
-            whileTap={{ scale: 0.95 }}
-            transition={{
-              y: { repeat: scrolled ? 0 : Infinity, repeatDelay: 5 },
-              duration: 0.5,
-            }}
-           >
-            <AnimatePresence>
-              <motion.div
-                initial={{ rotate: 0 }}
-                whileHover={{ rotate: 90 }}
-                transition={{ duration: 0.3 }}
-              >
-                <PlusIcon />
-              </motion.div>
-            </AnimatePresence>
-            <motion.button
-              whileHover={{ textShadow: '0 0 8px rgba(37, 99, 235, 0.5)' }}
+        {location.pathname === `/blogs` && (
+          <Link to={'/blogs/create'}>
+            <motion.div
+              className="bg-gradient-to-r from-blue-200 to-orange-100
+              text-blue-700 space-x-2
+              flex items-center justify-center
+              font-semibold
+              px-4
+              py-2
+              rounded-xl
+              border-2 border-blue-600
+              shadow-md"
+              whileHover={{
+                scale: 1.05,
+                backgroundImage: 'linear-gradient(to right, #dbeafe, #fff7ed)',
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{
+                y: { repeat: scrolled ? 0 : Infinity, repeatDelay: 5 },
+                duration: 0.5,
+              }}
             >
-              Create Blog
-            </motion.button>
-          </motion.div>
-        </Link>
+              <AnimatePresence>
+                <motion.div
+                  initial={{ rotate: 0 }}
+                  whileHover={{ rotate: 90 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <PlusIcon />
+                </motion.div>
+              </AnimatePresence>
+              <motion.button
+                whileHover={{ textShadow: '0 0 8px rgba(37, 99, 235, 0.5)' }}
+              >
+                Create Blog
+              </motion.button>
+            </motion.div>
+          </Link>
+        )}
+
+       
       </div>
       <motion.div
         style={{ scaleX }}
