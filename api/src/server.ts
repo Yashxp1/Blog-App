@@ -11,10 +11,10 @@ dotenv.config();
 
 const PORT = process.env.PORT || 3001;
 
-const allowed_origin = [
-  ' http://localhost:5173/',
-  ' http://192.168.186.224:5173/',
-];
+// const allowed_origin = [
+//   ' http://localhost:5173/',
+//   ' http://192.168.186.224:5173/',
+// ];
 
 const app = express();
 app.use(express.json());
