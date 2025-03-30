@@ -15,7 +15,7 @@ export type AuthState = {
 };
 
 export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
+  user: localStorage.getItem('username') || null,
   token: localStorage.getItem('token') || null,
 
   register: async (name, username, password) => {
@@ -27,6 +27,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       });
       set({ user: res.data.user, token: res.data.token });
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('username', res.data.username);
       return true;
     } catch (error) {
       console.error('Registration failed', error);
@@ -42,6 +43,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       });
       set({ user: res.data.user, token: res.data.token });
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('username', res.data.username);
       return true;
     } catch (error) {
       console.error('Login failed', error);
@@ -50,6 +52,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
   logout: () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('username'); 
     set({ user: null, token: null });
   },
 }));

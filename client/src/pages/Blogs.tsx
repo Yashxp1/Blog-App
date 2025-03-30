@@ -6,12 +6,9 @@ import { Link } from 'react-router-dom';
 const Blogs = () => {
   const { blogs, getBlogs } = useBlogStore();
 
-
   useEffect(() => {
     getBlogs();
   }, [getBlogs]);
-
-
 
   const sortedBlogs = [...blogs].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -29,9 +26,12 @@ const Blogs = () => {
 
       <div className="mt-8 flex flex-col items-center gap-8 max-w-4xl mx-auto">
         {blogs.length === 0 ? (
-          <h2 className="text-2xl font-bold text-white bg-blue-600 p-4 rounded-lg">
-            Loading Blogs...
-          </h2>
+          <div>
+            <h2 className="text-2xl font-bold text-white bg-blue-600 p-4 rounded-lg">
+              Loading Blogs...
+            </h2>
+            <span className='text-center text-gray-400'>Try refreshing...</span>
+          </div>
         ) : (
           sortedBlogs.map((blog) => (
             <motion.div

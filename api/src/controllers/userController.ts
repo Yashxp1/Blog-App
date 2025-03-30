@@ -102,6 +102,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       success: true,
       message: 'User logged in successfully',
       token,
+      username
     });
 
     console.log(token)

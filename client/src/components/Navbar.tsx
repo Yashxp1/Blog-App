@@ -1,9 +1,10 @@
 import { useScroll, useSpring, useTransform } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import PlusIcon from '../icons/PlusIcon';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useAuthStore } from '../store/useAuthStore'; 
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -16,8 +17,16 @@ const Navbar = () => {
 
   const location = useLocation();
 
-  const navHeight = useTransform(scrollYProgress, [0, 0.1], ['5rem', '3.5rem']);
+  const { user, logout } = useAuthStore();
+  const navigate = useNavigate()
 
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+    
+  }
+
+  const navHeight = useTransform(scrollYProgress, [0, 0.1], ['5rem', '3.5rem']);
   const logoSize = useTransform(scrollYProgress, [0, 0.1], ['4xl', '2xl']);
 
   useEffect(() => {
@@ -59,24 +68,73 @@ const Navbar = () => {
         >
           <Link to={'/blogs'}>
             <motion.span
-              className={`text-${scrolled ? '2xl' : '4xl'} sm:text-${
-                scrolled ? 'xl' : '3xl'
-              } md:text-${scrolled ? '7xl' : '5xl'} lg:text-${
-                scrolled ? '5xl' : '6xl'
-              } xl:text-${scrolled ? '7xl' : '5xl'} 2xl:text-${
-                scrolled ? '2xl' : '4xl'
-              }`}
+              className={`text-${scrolled ? '2xl' : '4xl'} sm:text-$
+                {scrolled ? 'xl' : '3xl'} md:text-${scrolled ? '7xl' : '5xl'} lg:text-$
+                {scrolled ? '5xl' : '6xl'} xl:text-${scrolled ? '7xl' : '5xl'} 2xl:text-$
+                {scrolled ? '2xl' : '4xl'}`}
             >
               BlogSphere.
             </motion.span>
           </Link>
         </motion.div>
-        {location.pathname === `/blogs` && (
-          <Link to={'/blogs/create'}>
-            <motion.div
+
+        <div className="flex items-center space-x-2 md:space-x-4">
+
+        {user && (
+            <motion.div 
+              className="text-blue-700 border-blue-400 rounded-full border-2 font-semibold px-4 py-2 hidden sm:block"
+              whileHover={{ scale: 1.05 }}
+            >
+              Welcome, {user}
+            </motion.div>
+          )}
+
+          {user && location.pathname === `/blogs` && (
+            <Link to={'/blogs/create'}>
+              <motion.div
+                className="bg-gradient-to-r from-blue-200 to-orange-100
+                text-blue-700 space-x-2
+                flex items-center justify-center
+                font-semibold
+                px-4
+                py-2
+                rounded-xl
+                border-2 border-blue-600
+                shadow-md"
+                whileHover={{
+                  scale: 1.05,
+                  backgroundImage: 'linear-gradient(to right, #dbeafe, #fff7ed)',
+                }}
+                whileTap={{ scale: 0.95 }}
+                transition={{
+                  y: { repeat: scrolled ? 0 : Infinity, repeatDelay: 5 },
+                  duration: 0.5,
+                }}
+              >
+                <AnimatePresence>
+                  <motion.div
+                    initial={{ rotate: 0 }}
+                    whileHover={{ rotate: 90 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <PlusIcon />
+                  </motion.div>
+                </AnimatePresence>
+                <motion.span
+                  className="hidden sm:inline"
+                  whileHover={{ textShadow: '0 0 8px rgba(37, 99, 235, 0.5)' }}
+                >
+                  Create Blog
+                </motion.span>
+              </motion.div>
+            </Link>
+          )}
+
+
+          {user && (
+            <motion.button
               className="bg-gradient-to-r from-blue-200 to-orange-100
-              text-blue-700 space-x-2
-              flex items-center justify-center
+              text-blue-700
               font-semibold
               px-4
               py-2
@@ -88,30 +146,13 @@ const Navbar = () => {
                 backgroundImage: 'linear-gradient(to right, #dbeafe, #fff7ed)',
               }}
               whileTap={{ scale: 0.95 }}
-              transition={{
-                y: { repeat: scrolled ? 0 : Infinity, repeatDelay: 5 },
-                duration: 0.5,
-              }}
+              onClick={handleLogout}
+              
             >
-              <AnimatePresence>
-                <motion.div
-                  initial={{ rotate: 0 }}
-                  whileHover={{ rotate: 90 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <PlusIcon />
-                </motion.div>
-              </AnimatePresence>
-              <motion.button
-                whileHover={{ textShadow: '0 0 8px rgba(37, 99, 235, 0.5)' }}
-              >
-                Create Blog
-              </motion.button>
-            </motion.div>
-          </Link>
-        )}
-
-       
+              Logout
+            </motion.button>
+          )}
+        </div>
       </div>
       <motion.div
         style={{ scaleX }}
