@@ -41,9 +41,8 @@ export const createBlog = async (
       post,
     });
 
-    console.log(post)
-    console.log(process.env.JWT_SECRET)
-
+ 
+ 
   } catch (error) {
     console.error('Error in SIGNUP ', error);
     res.status(500).json({

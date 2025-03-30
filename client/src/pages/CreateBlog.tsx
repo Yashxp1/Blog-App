@@ -14,13 +14,12 @@ const CreateBlog = () => {
 
   const handleCreateBlog = async (e: React.FormEvent) => {
     e.preventDefault();
-    
 
     const tagsArray = tags.split(',').map((tag) => tag.trim());
 
     try {
       const success = await createBlog(title, content, image, tagsArray);
-      
+
       if (success) {
         toast.success('You have created a blog successfully!');
       } else {
@@ -35,7 +34,7 @@ const CreateBlog = () => {
     <div className="flex justify-center items-center min-h-screen  p-4">
       <ToastContainer />
       <div className="w-full max-w-2xl backdrop-blur-lg bg-white/30 rounded-xl shadow-lg p-8 border border-white/40">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">
+        <h1 className="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-pink-500 to-blue-300 text-transparent bg-clip-text">
           Create New Blog
         </h1>
 

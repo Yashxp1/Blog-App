@@ -11,10 +11,28 @@ dotenv.config();
 
 const PORT = process.env.PORT || 3001;
 
+const allowed_origin = [
+  ' http://localhost:5173/',
+  ' http://192.168.186.224:5173/',
+];
+
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+
+app.use(cors())
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (!origin || allowed_origin.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error('Not allowd by cors'));
+//       }
+//     },
+//     credentials: true,
+//   })
+// );
 
 app.use('/api/v1', authRouter);
 app.use('/api/v1', blogRouter);
