@@ -13,7 +13,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-    const [laoding, setLoading] = useState<boolean>(false)
+    // const [laoding, setLoading] = useState<boolean>(false)
 
     
 

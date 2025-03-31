@@ -29,6 +29,12 @@ const CommentSection = () => {
       return;
     }
 
+    if (!blogId) {
+      toast.error('Invalid blog ID');
+      return;
+    }
+    
+
     try {
       const success = await createComment(blogId, comment);
       if (success) {
@@ -45,7 +51,7 @@ const CommentSection = () => {
     }
   };
 
-  const handleDeleteComment = async (blogId: string, commentId: string) => {
+  const handleDeleteComment = async (blogId?: string, commentId?: string) => {
     setLoading(true);
     if (!blogId || !commentId) {
       toast.error('Invalid blog or comment ID');

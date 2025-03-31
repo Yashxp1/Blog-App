@@ -83,7 +83,7 @@ export const useCommentStore = create<CommentStore>((set) => ({
         return;
       }
 
-      const res = await axios.delete(
+       await axios.delete(
         `${BaseURL}/blogs/${blogId}/comments/delete/${commentId}`,
         {
           headers: {

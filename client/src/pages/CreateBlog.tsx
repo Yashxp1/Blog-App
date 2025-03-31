@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useBlogStore } from '../store/fetchBlogs';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -79,7 +78,7 @@ const CreateBlog = () => {
                 value={content}
                 required
                 onChange={(e) => setContent(e.target.value)}
-                rows="6"
+                rows={6}
                 className="w-full px-4 py-2 rounded-lg bg-white/50 border border-purple-300 focus:outline-none focus:ring-2 focus:ring-blue-500 backdrop-blur-sm"
                 placeholder="Write your blog content here..."
               ></textarea>

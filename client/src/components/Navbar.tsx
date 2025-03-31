@@ -27,7 +27,7 @@ const Navbar = () => {
   }
 
   const navHeight = useTransform(scrollYProgress, [0, 0.1], ['5rem', '3.5rem']);
-  const logoSize = useTransform(scrollYProgress, [0, 0.1], ['4xl', '2xl']);
+  // const logoSize = useTransform(scrollYProgress, [0, 0.1], ['4xl', '2xl']);
 
   useEffect(() => {
     const handleScroll = () => {
