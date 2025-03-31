@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useBlogStore } from '../store/fetchBlogs';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
