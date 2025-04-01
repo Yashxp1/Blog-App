@@ -6,25 +6,23 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-    // const [laoding, setLoading] = useState<boolean>(false)
-
-    
+  const [laoding, setLoading] = useState<boolean>(false);
 
   const login = useAuthStore((state) => state.login);
 
   const handleLogin = async (e: React.FormEvent) => {
+    setLoading(true);
     e.preventDefault();
 
     try {
       const success = await login(username, password);
       if (success) {
+        setLoading(false);
         toast.success('You have logged in successfully!');
         navigate('/blogs');
       } else {
@@ -83,13 +81,21 @@ const Login = () => {
             </div>
 
             <div className="flex flex-col space-y-4">
-              <button
-              
-                type="submit"
-                className="w-full  bg-gradient-to-r from-blue-400 to-indigo-400 text-white py-2 rounded-lg hover:opacity-90 transition duration-300 ease-in-out"
-              >
-                Login
-              </button>
+              {laoding ? (
+                <button
+                  type="submit"
+                  className="w-full  bg-gradient-to-r from-blue-400 to-indigo-400 text-white py-2 rounded-lg hover:opacity-90 transition duration-300 ease-in-out"
+                >
+                  Logging in
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="w-full  bg-gradient-to-r from-blue-400 to-indigo-400 text-white py-2 rounded-lg hover:opacity-90 transition duration-300 ease-in-out"
+                >
+                  Login
+                </button>
+              )}
 
               <div className="flex justify-center items-center space-x-2">
                 <div className="h-px bg-gray-300 w-full"></div>
@@ -107,9 +113,6 @@ const Login = () => {
           </button>
         </div>
       </div>
-
-
-
     </div>
   );
 };

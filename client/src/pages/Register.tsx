@@ -10,17 +10,20 @@ const Register = () => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [laoding, setLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
   const register = useAuthStore((state) => state.register);
 
   const handleRegister = async (e: any) => {
+    setLoading(true);
     e.preventDefault();
 
     try {
       const success = await register(name, username, password);
       if (success) {
+        setLoading(false);
         toast.success('You have registered successfully!');
         navigate('/login');
       } else {
@@ -50,7 +53,6 @@ const Register = () => {
                 Name
               </label>
               <input
-            
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 type="text"
@@ -68,7 +70,6 @@ const Register = () => {
                 Username
               </label>
               <input
-                
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 type="text"
@@ -86,7 +87,6 @@ const Register = () => {
                 Password
               </label>
               <input
-                
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
@@ -97,12 +97,21 @@ const Register = () => {
             </div>
 
             <div className="flex flex-col space-y-4">
-              <button
-                type="submit"
-                className="w-full  bg-gradient-to-r from-blue-400 to-indigo-400 text-white py-2 rounded-lg hover:opacity-90 transition duration-300 ease-in-out"
-              >
-                Register
-              </button>
+              {laoding ? (
+                <button
+                  type="submit"
+                  className="w-full  bg-gradient-to-r from-blue-400 to-indigo-400 text-white py-2 rounded-lg hover:opacity-90 transition duration-300 ease-in-out"
+                >
+                  Registering
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="w-full  bg-gradient-to-r from-blue-400 to-indigo-400 text-white py-2 rounded-lg hover:opacity-90 transition duration-300 ease-in-out"
+                >
+                  Register
+                </button>
+              )}
 
               <div className="flex justify-center items-center space-x-2">
                 <div className="h-px bg-gray-300 w-full"></div>
