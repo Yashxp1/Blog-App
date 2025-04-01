@@ -1,9 +1,9 @@
 import { useScroll, useSpring, useTransform } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import PlusIcon from '../icons/PlusIcon';
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
 
 const Navbar = () => {
@@ -15,11 +15,12 @@ const Navbar = () => {
     restDelta: 0.001,
   });
 
-  const location = useLocation();
+  // const location = useLocation();
 
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
 
+  
   const handleLogout = () => {
     logout();
     navigate('/');

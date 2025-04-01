@@ -5,6 +5,7 @@ import { BaseURL } from './BaseURL';
 export type AuthState = {
   user: any | null;
   token: string | null;
+
   register: (
     name: string,
     username: string,
@@ -52,7 +53,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
   logout: () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('username'); 
+    localStorage.removeItem('username');
     set({ user: null, token: null });
   },
 }));

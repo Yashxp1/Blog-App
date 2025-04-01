@@ -86,7 +86,7 @@ const Login = () => {
                   type="submit"
                   className="w-full  bg-gradient-to-r from-blue-400 to-indigo-400 text-white py-2 rounded-lg hover:opacity-90 transition duration-300 ease-in-out"
                 >
-                  Logging in
+                  Logging in....
                 </button>
               ) : (
                 <button
