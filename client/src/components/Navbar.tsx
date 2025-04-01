@@ -17,7 +17,8 @@ const Navbar = () => {
 
   // const location = useLocation();
 
-  const { user, logout } = useAuthStore();
+  // const { user, logout } = useAuthStore();
+  const { logout } = useAuthStore();
   const navigate = useNavigate();
 
   
@@ -86,7 +87,7 @@ const Navbar = () => {
         </motion.div>
 
         <div className="flex items-center space-x-2 md:space-x-4">
-          <motion.span whileHover={{ scale: 1.05 }} className='font-semibold text-lg bg-gradient-to-br from-blue-500 to-pink-500 bg-clip-text text-transparent'>Hello, {user}</motion.span>
+          {/* <motion.span whileHover={{ scale: 1.05 }} className='font-semibold text-lg bg-gradient-to-br from-blue-500 to-pink-500 bg-clip-text text-transparent'>Hello, {user}</motion.span> */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             onClick={handleCreateRoute}
